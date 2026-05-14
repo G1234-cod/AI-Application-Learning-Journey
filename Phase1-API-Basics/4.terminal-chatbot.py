@@ -6,7 +6,7 @@ from openai import OpenAI
 # 加载 .env 文件中的环境变量
 load_dotenv()
 api_key = os.environ.get("DEEPSEEK_API_KEY")
-print(api_key)
+
 def sendMessage(messages):
     # 使用requests调用 API
     # 构建请求 URL及API端口
@@ -22,7 +22,6 @@ def sendMessage(messages):
         "Content-Type": "application/json"
     }
     response = requests.post(url, json=data, headers=headers)
-    response.raise_for_status()
     return response.json()
 
 def sendChat(messages):
