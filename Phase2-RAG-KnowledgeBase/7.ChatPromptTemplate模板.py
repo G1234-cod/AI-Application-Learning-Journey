@@ -1,18 +1,23 @@
-from langchain.prompts import (
-    PromptTemplate,
+
+from langchain_core.prompts import (
     ChatPromptTemplate,
-    MessagesPlaceholder,
+    PromptTemplate,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
-    AIMessagePromptTemplate
+    AIMessagePromptTemplate,
+    MessagesPlaceholder
 )
-from langchain.schema import (
+from langchain_core.messages import (
     SystemMessage,
     HumanMessage,
-    AIMessage,
-    ChatPromptValue
+    AIMessage
 )
-
+from langchain_core.prompt_values import ChatPromptValue
+# ==============================================
+# 知识点1: ChatPromptTemplate创建
+# ==============================================
+print("\n" + "=" * 60)
+print("知识点1: ChatPromptTemplate创建")
 # 方式1: 使用ChatPromptTemplate直接创建
 chat_prompt1 = ChatPromptTemplate(
     messages=[
@@ -30,15 +35,14 @@ chat_prompt2 = ChatPromptTemplate.from_messages([
 
 
 # ==============================================
-# 知识点3: ChatPromptTemplate四种填充方法
+# 知识点2: ChatPromptTemplate四种填充方法
 # format: 传入变量值返回字符串类型
 # invoke: 传入字典返回ChatPromptValue
 # format_prompt: 传入变量值返回ChatPromptValue
 # format_messages: 传入变量值返回消息构成的列表
 # ==============================================
 print("\n" + "=" * 60)
-print("知识点3: ChatPromptTemplate四种填充方法")
-print("=" * 60)
+print("知识点2: ChatPromptTemplate四种填充方法")
 
 chat_prompt = ChatPromptTemplate.from_messages([
     ("system", "你是一个专业的{field}专家。"),
@@ -62,14 +66,12 @@ result_format_messages = chat_prompt.format_messages(field="计算机科学", us
 print("4. format_messages方法 - 类型:", type(result_format_messages), "- 结果:", result_format_messages)
 
 # ==============================================
-# 知识点4: ChatPromptValue类型的转换
+# 知识点3: ChatPromptValue类型的转换
 # to_messages: 转为消息列表
 # to_string: 转为字符串
 # ==============================================
 print("\n" + "=" * 60)
-print("知识点4: ChatPromptValue类型的转换")
-print("=" * 60)
-
+print("知识点3: ChatPromptValue类型的转换")
 # 转为消息列表
 messages = result_invoke.to_messages()
 print("to_messages() - 类型:", type(messages), "- 结果:", messages)
@@ -78,15 +80,12 @@ print("to_messages() - 类型:", type(messages), "- 结果:", messages)
 text = result_invoke.to_string()
 print("to_string() - 类型:", type(text), "- 结果:", text)
 
-
 # ==============================================
-# 知识点6: MessagePlaceholder的使用
+# 知识点4: MessagePlaceholder的使用
 # 当消息类型和个数不确定时使用
 # ==============================================
 print("\n" + "=" * 60)
-print("知识点6: MessagePlaceholder的使用")
-print("=" * 60)
-
+print("知识点4: MessagePlaceholder的使用")
 # 创建带有MessagePlaceholder的模板
 prompt_with_placeholder = ChatPromptTemplate.from_messages([
     ("system", "你是一个对话助手，根据历史对话回答问题。"),
